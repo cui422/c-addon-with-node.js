@@ -2,7 +2,7 @@
 
 using namespace v8;
 
-int factorial(int n);
+unsigned long long factorial(unsigned int n);
 
 NAN_METHOD(Factorial) {
   if (!info[0]->IsNumber() || info[0]->NumberValue() < 1) {
@@ -19,7 +19,7 @@ NAN_MODULE_INIT(init) {
 
 NODE_MODULE(factorial, init)
 
-int factorial(int n) {
+unsigned long long factorial(unsigned int n) {
   if (n == 1) {
     return 1;
   } else {
