@@ -30,6 +30,13 @@ or
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 
+Once the app run, you need to input the below credential in the first page.
+
+Username: admin
+
+Password: admin123
+
+
 ## Documentation
 
 For more information about using Node.js on Heroku, see these Dev Center articles:
