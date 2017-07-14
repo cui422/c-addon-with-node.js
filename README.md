@@ -38,4 +38,4 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
 - [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
 - [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [C++ Addons](https://nodejs.org/api/addons.html)
+- [C++ Addons with node.js](https://nodejs.org/api/addons.html)
