@@ -46,7 +46,7 @@ onClientDisconnect = function(){
 };
 
 onGetResult = function(value) {
-	client = this
+	var client = this
 	console.log("received: ", value);
 	client.emit('get_result', addon.factorial(parseInt(value)));
 }
