@@ -21,6 +21,7 @@ server.listen(port);
 io.on('connection', function( client ){
     onClientConnect( client );
     client.on("disconnect", onClientDisconnect);
+    client.on("login", onUserConfirm);
     client.on("request", onRequest);
 });
 
@@ -32,6 +33,15 @@ onClientConnect = function( client ){
 onClientDisconnect = function(){
     console.log('disconnected');
 };
+
+onUserConfirm = function(user_info) {
+    if (user_info[0] == "admin" && user_info[1] == "admin123" ) {
+        console.log("Login Confirm");
+        this.emit('login', "confirmed");
+    } else {
+        this.emit('login', "Invalid Username or Password");
+    }
+}
 
 //response the result of factorial to request from client.
 onRequest = function(value) {

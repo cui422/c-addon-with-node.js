@@ -2,18 +2,76 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta content="ie=edge" http-equiv="x-ua-compatible">
+    <link rel="stylesheet" href="./assets/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/css/jquery.dataTables.css">
 	<title>Assignment-1</title>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/materialize.min.js"></script>
 </head>
 <body>
-	<div class="b-page-wrap">
-		<input type="number" id="number"/>
+    <div class="row" style="padding-top:100px;">&nbsp;</div>
+    <div id="login-page" class="row" style="width:50%;text-align:center;">
+        <div class="col s12 z-depth-4 card-panel">
+            <form class="login-form">
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <h4 class="center login-form-text">User Login</h4>
+                    </div>
+                </div>
+                <b class="error red-text"></b>
+                <div class="row margin" style="width:50%">
+                    <div class="input-field col s12">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input id="username" type="text">
+                        <label for="username" class="center-align">Username</label>
+                    </div>
+                </div>
+                <div class="row margin" style="width:50%">
+                    <div class="input-field col s12">
+                        <i class="mdi-action-lock-outline prefix"></i>
+                        <input id="password" type="password">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row" style="width:30%">
+                    <div class="input-field col s12">
+                        <a id="confirm" class="btn waves-effect waves-light col s12">Confirm</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+	<div id="calculate">
+		<input type="number" id="number" style="border: 1px solid #9e9e9e;width:100px;height: 20px;"/>
 		<input type="button" value="Factorial" onclick="get_result()"/>
 		<span id="result"></span>
 	</div>
 <script>
     var SOCKET = io();
+    $(document).ready(function() {
+        if(window.sessionStorage['u_info'] == undefined)
+            $("#calculate").hide();
+        else 
+            $("#login-page").hide();
+
+        $("#confirm").click(function(){
+            var name = $("#username").val();
+            var pwd = $("#password").val();
+            var user_info = [name, pwd];
+            SOCKET.emit("login", user_info);
+        });
+        
+        $('#password').keydown(function (e){
+            if(e.keyCode == 13){
+                var name = $("#username").val();
+                var pwd = $("#password").val();
+                var user_info = [name, pwd];
+                SOCKET.emit("login", user_info);
+            }
+        })
+    });
+
 	get_result = function () {
 		number = document.getElementById("number").value;
         SOCKET.emit("request", number);
@@ -21,6 +79,18 @@
     SOCKET.on('get_factorial', function(data) {
 		result = document.getElementById("result");
 		result.innerText = data;
+    });
+    SOCKET.on('login', function(data) {
+        if (data == "confirmed") {
+            window.sessionStorage["u_info"] = data;
+            $("#login-page").hide();
+            $("#calculate").show();
+        } else {
+            $("#username").val("");
+            $("#password").val("");
+            $("#username").focus();
+            $(".error").text(data);
+        }
     });
 </script>
 </body>
