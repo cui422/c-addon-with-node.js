@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="ie=edge" http-equiv="x-ua-compatible">
+	<title>Test</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<div class="b-page-wrap">
+		<input type="number" id="number"/>
+		<input type="button" value="Sum" onclick="get_result()"/>
+		<span id="result"></span>
+	</div>
+<script>
+    var SOCKET = io();
+	get_result = function () {
+		number = document.getElementById("number").value;
+        SOCKET.emit("request", number);
+	}
+    SOCKET.on('get_result', function(data) {
+		result = document.getElementById("result");
+		result.innerText = data;
+    });
+</script>
+</body>
+</html>
