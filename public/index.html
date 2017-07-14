@@ -44,7 +44,7 @@
     </div>
 	<div id="calculate" style="padding-left:100px;">
 		<input type="number" id="number" style="border: 1px solid #9e9e9e;width:100px;height: 20px;"/>
-		<input type="button" value="Factorial" onclick="get_result()"/>
+		<input type="button" value="Factorial" onclick="get_factorial()"/>
 		<span id="result"></span>
 	</div>
 <script>
@@ -72,7 +72,7 @@
         })
     });
 
-	get_result = function () {
+	get_factorial = function () {
 		number = document.getElementById("number").value;
         SOCKET.emit("request", number);
 	}
